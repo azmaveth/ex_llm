@@ -752,23 +752,26 @@ defmodule ExLLM.Providers.Gemini do
   defp convert_role("assistant"), do: "model"
   defp convert_role(role), do: to_string(role)
 
-  defp extract_system_instruction([%Content{role: "user", parts: parts} = first | rest]) do
-    # Check if this was originally a system message
-    case parts do
-      [%Part{text: text}] when is_binary(text) ->
-        if String.starts_with?(text, "System: ") or String.starts_with?(text, "[System]") do
-          system_content = %Content{role: "system", parts: parts}
-          {system_content, rest}
-        else
-          {nil, [first | rest]}
-        end
-
-      _ ->
-        {nil, [first | rest]}
+  defp extract_system_instruction(contents) do
+    # Filter contents with the "system" role
+    system_contents = contents |> Enum.filter(fn content -> content.role == "system" end)
+    
+    case system_contents do
+      [] -> 
+        {nil, contents}
+      system_messages ->
+        # Flatten and filter parts
+        system_parts = system_messages |> Enum.flat_map(& &1.parts)
+        
+        # Map and join the system instruction text  
+        system_text = system_parts |> Enum.map(& &1.text) |> Enum.join(" ")
+        
+        system_instruction = %Content{role: "system", parts: [%Part{text: system_text}]}
+        remaining_contents = contents |> Enum.reject(fn content -> content.role == "system" end)
+        
+        {system_instruction, remaining_contents}
     end
   end
-
-  defp extract_system_instruction(contents), do: {nil, contents}
 
   defp build_generation_config(options) do
     base_config = %{
