@@ -88,9 +88,9 @@ defmodule ExLLM.Providers.Ollama do
 
     config = get_config(config_provider)
 
-    raw_model = Keyword.get(options, :model, Map.get(config, :model, get_default_model()))
+    raw_model = Keyword.get(options, :model, Map.get(config, :model))
     # Strip provider prefix if present
-    model = strip_provider_prefix(raw_model)
+    model = strip_provider_prefix(raw_model || get_default_model())
 
     # Ensure we have a model
     model = model || get_default_model()
@@ -157,9 +157,9 @@ defmodule ExLLM.Providers.Ollama do
 
     config = get_config(config_provider)
 
-    raw_model = Keyword.get(options, :model, Map.get(config, :model, get_default_model()))
+    raw_model = Keyword.get(options, :model, Map.get(config, :model))
     # Strip provider prefix if present
-    model = strip_provider_prefix(raw_model)
+    model = strip_provider_prefix(raw_model || get_default_model())
 
     # Ensure we have a model
     model = model || get_default_model()
