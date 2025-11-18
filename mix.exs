@@ -2,7 +2,7 @@ defmodule ExLLM.MixProject do
   use Mix.Project
 
   @version "1.0.0-rc1"
-  @description "Unified Elixir client library for Large Language Models (LLMs)"
+  @description "[DEPRECATED] This library is no longer maintained. Please use req_llm by agentjido instead. Unified Elixir client library for Large Language Models (LLMs)"
 
   def project do
     [
