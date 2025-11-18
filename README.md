@@ -1,5 +1,13 @@
 # ExLLM
 
+> **⚠️ DEPRECATED - NO LONGER MAINTAINED**
+>
+> **This library is no longer actively maintained.**
+>
+> **Please use [req_llm](https://github.com/agentjido/req_llm) by agentjido instead.**
+>
+> `req_llm` provides a modern, actively maintained alternative with similar functionality and better integration with the Elixir ecosystem.
+
 [![Hex.pm](https://img.shields.io/hexpm/v/ex_llm.svg)](https://hex.pm/packages/ex_llm)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ex_llm/)
 [![License](https://img.shields.io/hexpm/l/ex_llm.svg)](https://github.com/azmaveth/ex_llm/blob/main/LICENSE)
@@ -8,8 +16,6 @@
 **A unified Elixir client for interfacing with multiple Large Language Model (LLM) providers.**
 
 `ExLLM` provides a single, consistent API to interact with a growing list of LLM providers. It abstracts away the complexities of provider-specific request formats, authentication, and error handling, allowing you to focus on building features.
-
-> 🚀 **Release Candidate**: This library is approaching its 1.0.0 stable release. The API is stabilized and ready for production use.
 
 ## Key Features
 
