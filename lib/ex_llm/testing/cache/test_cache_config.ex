@@ -94,7 +94,7 @@ defmodule ExLLM.Testing.TestCacheConfig do
     cond do
       not config.enabled -> false
       not config.auto_detect -> config.enabled
-      Mix.env() == :test -> true
+      Application.get_env(:ex_llm, :environment, :prod) == :test -> true
       true -> config.enabled
     end
   end

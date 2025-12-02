@@ -31,7 +31,7 @@ defmodule ExLLM.ResponseCapture do
           "provider" => provider,
           "endpoint" => endpoint,
           "captured_at" => timestamp,
-          "environment" => Mix.env(),
+          "environment" => Application.get_env(:ex_llm, :environment, :prod),
           "request_summary" => summarize_request(request)
         })
 
@@ -142,7 +142,7 @@ defmodule ExLLM.ResponseCapture do
           total_tokens: Map.get(usage, "total_tokens", 0)
         }
 
-      # Anthropic format  
+      # Anthropic format
       usage = Map.get(response, "usage") ->
         %{
           input_tokens: Map.get(usage, "input_tokens", 0),

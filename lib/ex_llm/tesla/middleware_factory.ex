@@ -430,7 +430,8 @@ defmodule ExLLM.Tesla.MiddlewareFactory do
   defp check_rate_limit_401(_), do: false
 
   defp should_include_logger?(config) do
-    config[:debug] || Mix.env() in [:dev, :test]
+    env = Application.get_env(:ex_llm, :environment, :prod)
+    config[:debug] || env in [:dev, :test]
   end
 
   defp should_include_compression?(_provider, config) do

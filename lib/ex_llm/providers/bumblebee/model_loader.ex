@@ -18,7 +18,11 @@ defmodule ExLLM.Providers.Bumblebee.ModelLoader do
   alias ExLLM.Infrastructure.Logger
   alias ExLLM.Providers.Bumblebee.EXLAConfig
 
-  @model_cache_dir Path.expand("~/.ex_llm/models")
+  @model_cache_dir Application.compile_env(
+                     :ex_lmm,
+                     :model_cache_path,
+                     Path.expand("~/.ex_llm/models")
+                   )
 
   # Client API
 

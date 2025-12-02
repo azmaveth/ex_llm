@@ -82,7 +82,7 @@ defmodule ExLLM.Testing.TestCacheDetector do
     cond do
       not config.enabled -> false
       not config.auto_detect -> config.enabled
-      Mix.env() != :test -> false
+      Application.get_env(:ex_llm, :environment, :prod) != :test -> false
       is_destructive_operation?() and not config.cache_destructive_operations -> false
       true -> should_cache_current_test?(config)
     end

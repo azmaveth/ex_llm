@@ -5,6 +5,7 @@ config :tesla, disable_deprecated_builder_warning: true
 
 # ExLLM Configuration
 config :ex_llm,
+  environment: Mix.env(),
   # Caching strategy
   cache_strategy: ExLLM.Cache.Strategies.Production,
   # Global cache configuration
@@ -89,7 +90,7 @@ end
 if Mix.env() == :test do
   # Test configuration is now centralized in ExLLM.Testing.Config
   # and applied in test_helper.exs for better maintainability
-  # 
+  #
   # Minimal config here to avoid duplication
   config :logger, level: :error
   config :ex_llm, startup_validation: %{enabled: false}

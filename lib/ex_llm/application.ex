@@ -9,6 +9,7 @@ defmodule ExLLM.Application do
     case Application.ensure_all_started(:telemetry) do
       {:ok, _apps} ->
         :ok
+
       {:error, _} ->
         # Telemetry might not be available, continue anyway
         :ok
@@ -21,15 +22,10 @@ defmodule ExLLM.Application do
     ExLLM.Infrastructure.CircuitBreaker.init()
 
     # Delay metrics setup to avoid telemetry warnings
-    if Mix.env() in [:dev, :test] do
-      spawn(fn ->
-        Process.sleep(100)
-        ExLLM.Infrastructure.CircuitBreaker.Metrics.setup()
-      end)
-    else
-      # In production, set up immediately
+    spawn(fn ->
+      Process.sleep(100)
       ExLLM.Infrastructure.CircuitBreaker.Metrics.setup()
-    end
+    end)
 
     children =
       [
